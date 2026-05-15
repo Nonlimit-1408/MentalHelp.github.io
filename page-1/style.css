@@ -302,6 +302,7 @@ button {
         flex-grow: 0 !important;
         padding: clamp(10px, 2vw, 20px);
         height: auto;
+       transform: translateY(10%);
     }
 
     .mood-zone {
