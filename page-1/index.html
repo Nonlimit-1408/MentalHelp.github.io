@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MentalHelp+</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="../asset/logo.svg" class="logo-img" alt="MentalHelp+">
+            </div>
+        </nav>
+    </header>
+    
+    <div class="main-container">
+        <div class="text-zone mobile-title">
+            <h1 data-i18n="p1_title">ตอนนี้<br>คุณรู้สึกอย่างไร</h1>
+        </div>
+
+        <div class="emoji-zone">
+            <div class="note">
+                <img src="asset/Note.svg" id="note">
+                <img src="asset/Emote/00-normal.svg" id="note-emoji">
+            </div>
+        </div>
+
+        <div class="mood-zone">
+            <div class="text-zone pc-title">
+                <h1 data-i18n="p1_title">ตอนนี้<br>คุณรู้สึกอย่างไร</h1>
+            </div>
+            
+            <div class="button-zone">
+                <div class="firstLine">
+                    <button data-mood="tired" data-i18n="p1_mood1">เหนื่อยล้า<br>หมดไฟ</button>
+                    <button data-mood="stress" data-i18n="p1_mood2">เครียด<br>กดดัน</button>
+                    <button data-mood="down" data-i18n="p1_mood3">ดิ่ง<br>สับสน</button>
+                </div>
+                <div class="secondLine">
+                    <button data-mood="lonely" data-i18n="p1_mood4">โดดเดี่ยว<br>ว่างเปล่า</button>
+                    <button data-mood="sad" data-i18n="p1_mood5">เศร้า<br>เสียใจ</button>
+                    <button data-mood="need_hug" data-i18n="p1_mood6">ต้องการ<br>กำลังใจ</button>
+                </div>
+                <div class="confirmButton">
+                    <button id="confirm-btn" data-i18n="p1_confirm" disabled>รับพลังบวก</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../settings.js"></script>
+    <script src="../sound-bridge.js"></script>
+    <script src="lang.js"></script> 
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MentalHelp+</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="../asset/logo.svg" class="logo-img" alt="MentalHelp+">
+            </div>
+        </nav>
+    </header>
+
+   <div class="main-container">
+        <div class="top-row">
+            <div class="content-box-wrapper">
+                <h1 data-i18n="p2_quote_title">พลังบวกถึงคุณ</h1>
+                <div class="randomQuote"></div>
+            </div>
+            <div class="content-box-wrapper">
+                <h1 data-i18n="p2_advice_title">คำแนะนำเล็กๆ จากเรา</h1>
+                <div class="randomEncour"></div>
+            </div>
+        </div>
+
+        <div class="diary-section">
+            <h1 data-i18n="p2_diary_title">บันทึกของคุณ</h1>
+            <div class="diary">
+                <textarea id="diary-input" data-i18n-placeholder="p2_diary_placeholder" placeholder="วันนี้คุณอยากระบายอะไร..."></textarea>
+            </div>
+        </div>
+
+        <div class="bottom-row">
+            <button class="re-random" data-i18n="p2_btn_random">สุ่มใหม่</button>
+            <button class="finish" data-i18n="p2_btn_done">เรียบร้อย</button>
+        </div>
+    </div>
+
+    <script src="../settings.js"></script>
+    <script src="../sound-bridge.js"></script>
+    <script src="lang.js"></script> 
+    <script src="database.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

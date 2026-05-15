@@ -1,0 +1,360 @@
+/* =========================================
+   1. Setup & Navbar (DNA หน้า 1)
+   ========================================= */
+* {
+    /* 🌟 แก้ปัญหาฟอนต์หนา/มัว บน iPad (Safari) */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-synthesis: none;
+}
+
+@font-face {
+    font-family: 'thai-font';
+    src: url('../asset/th-font.ttf') format('truetype');
+}
+
+body {
+    background: #fffcee;
+    margin: 0;
+    font-family: 'thai-font', sans-serif;
+    color: #745232;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+button {
+    font-family: inherit;
+}
+
+.navbar {
+    width: 100%;
+    height: 80px;
+    background-color: #98c1ff;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 1000;
+}
+
+.logo-img {
+    height: 90%;
+    width: auto;
+    position: absolute;
+    /* 🌟 FIX 1: ยึดตำแหน่งโลโก้ตามหน้า 1 เป๊ะๆ */
+    top: -1%;
+    left: 2%;
+    z-index: 10;
+}
+
+/* =========================================
+   2. Main Container (📱 Mobile Base / แนวตั้ง)
+   ========================================= */
+.main-container {
+    flex: 1;
+    /* ของหน้า 2 ต้องมีอันนี้เพื่อดันให้เต็มพื้นที่ */
+    background: #fff6b3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+    /* 🌟 FIX 2: ความกว้างและโค้งมนอิงตามหน้า 1 */
+    width: 85%;
+    max-width: 850px;
+    margin: 3vh auto 4vh;
+    padding: 4vh 15px 3vh;
+    border-radius: 40px;
+
+    box-sizing: border-box;
+    position: relative;
+    gap: 3vh;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+    box-shadow: 0 10px 25px rgba(116, 82, 50, 0.1);
+
+    animation: slideInRight 0.6s forwards ease-out;
+}
+
+/* =========================================
+   3. จัดการส่วนบน (พลังบวก + คำแนะนำ)
+   ========================================= */
+.top-row {
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+    width: 100%;
+}
+
+.content-box-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+h1 {
+    font-size: clamp(20px, 5vw, 26px);
+    color: #745232;
+    margin: 0;
+    text-align: center;
+}
+
+.randomQuote,
+.randomEncour {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 12vh;
+    max-height: 180px;
+    min-height: 80px;
+
+    background-color: #ffffff;
+    border: 6px solid #98c1ff;
+    border-radius: 20px;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    text-align: center;
+    color: #745232;
+
+    font-size: clamp(10px, 3vw, 22px) !important;
+    line-height: 1.6;
+    transition: all 0.3s ease;
+    word-break: break-word;
+}
+
+/* =========================================
+   4. ส่วนบันทึกไดอารี่ (Diary Section)
+   ========================================= */
+.diary-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    min-height: 0;
+}
+
+.diary {
+    width: 100%;
+    flex: 1;
+    height: auto;
+    max-height: none;
+    min-height: 150px;
+
+    background-color: #ffffff;
+    border: 5px dashed #98c1ff;
+    border-radius: 20px;
+    padding: 15px;
+    box-sizing: border-box;
+    background-image: linear-gradient(#f1f1f1 1px, transparent 1px);
+    background-size: 100% 30px;
+    display: flex;
+}
+
+#diary-input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: transparent;
+    line-height: 30px;
+    font-family: inherit;
+    font-size: clamp(14px, 2.5vw, 20px) !important;
+    color: #745232;
+    outline: none;
+    resize: none;
+}
+
+/* =========================================
+   5. สไตล์ปุ่ม (Bottom Row) - อิงมาตรฐานหน้า 1
+   ========================================= */
+.bottom-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.bottom-row button {
+    flex: 1;
+    max-width: 180px;
+    height: auto;
+    padding: 12px 0;
+    background-color: #ffffff;
+
+    /* 🌟 FIX 3: ปรับขอบหนา 5px และรัศมี 10px เหมือนปุ่ม Confirm หน้า 1 */
+    border: 5px solid #745232;
+    border-radius: 10px;
+
+    cursor: pointer;
+    font-size: clamp(18px, 4vw, 24px);
+    font-weight: bold;
+    color: #d5a170;
+    transition: 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 🌟 FIX 4: แอนิเมชัน Hover ให้ขยาย 1.02 เท่าแบบเดียวกับหน้า 1 */
+@media (hover: hover) and (pointer: fine) {
+
+    .re-random:hover,
+    .finish:hover {
+        background-color: #745232;
+        color: #ffffff;
+        transform: scale(1.02);
+    }
+}
+
+.bottom-row button:active {
+    transform: scale(0.95);
+}
+
+/* =========================================
+   🖥️ 6. แนวนอน (Landscape / PC)
+   ========================================= */
+@media (orientation: landscape) {
+    .navbar {
+        padding: 0 20px;
+        height: 80px;
+    }
+
+    .main-container {
+        align-self: stretch;
+        width: auto;
+        max-width: none;
+        height: calc(100dvh - 80px - clamp(40px, 8dvh, 80px));
+        min-height: 500px;
+        margin: clamp(20px, 4dvh, 40px) clamp(20px, 5vw, 80px);
+        border-radius: 30px;
+        padding: clamp(15px, 3vh, 30px) clamp(20px, 4vw, 40px);
+        gap: 15px;
+    }
+
+    .top-row {
+        flex-direction: row;
+        gap: clamp(15px, 2vw, 30px);
+        margin-bottom: 10px;
+    }
+
+    .content-box-wrapper {
+        flex: 1;
+    }
+
+    h1 {
+        font-size: clamp(20px, 2.5vw, 26px);
+    }
+
+    .randomQuote,
+    .randomEncour {
+        height: clamp(100px, 2vh, 140px);
+        font-size: clamp(11px, 1.5vw, 18px) !important;
+    }
+
+    .diary-section {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .diary {
+        flex: 1;
+        height: auto;
+        max-height: none;
+    }
+
+    .bottom-row button {
+        flex: 0 1 auto;
+        width: clamp(180px, 25vw, 280px);
+        max-width: none;
+        height: clamp(50px, 8vh, 70px);
+
+        /* 🌟 FIX 6: ขอบปุ่มยืดหยุ่นในแนวนอนตามหน้า 1 */
+        border: clamp(3px, 0.6vw, 5px) solid #745232;
+    }
+
+    /* 📱 เคสพิเศษ: มือถือแนวนอนจอเตี้ยมาก */
+    @media (max-height: 500px) {
+        .main-container {
+            margin: 15px 40px;
+            padding: 15px;
+        }
+
+        h1 {
+            font-size: 18px;
+        }
+
+        .randomQuote,
+        .randomEncour {
+            min-height: 70px;
+            padding: 5px;
+        }
+
+        .bottom-row button {
+            height: 45px;
+            font-size: 18px;
+        }
+    }
+}
+
+/* =========================================
+   7. Animations 
+   ========================================= */
+.slide-in-right {
+    animation: slideInRight 0.6s forwards ease-out;
+}
+
+.slide-in-left {
+    animation: slideInLeft 0.5s forwards ease-out;
+}
+
+.slide-out-right {
+    animation: slideOutRight 0.5s forwards ease-in-out;
+}
+
+@keyframes slideInRight {
+    0% {
+        transform: translateX(100vw);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInLeft {
+    0% {
+        transform: translateX(-100vw);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutRight {
+    0% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(100vw);
+        opacity: 0;
+    }
+}
