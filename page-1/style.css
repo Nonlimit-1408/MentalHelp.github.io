@@ -92,6 +92,7 @@ button {
     align-items: center;
     position: relative;
     min-height: 0;
+   transform: translateY(-10%);
 }
 
 .note {
