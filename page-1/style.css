@@ -1,0 +1,406 @@
+/* =========================================
+   1. Setup & Navbar (DNA หน้า 1-6)
+   ========================================= */
+* {
+    /* 🌟 แก้ปัญหาฟอนต์หนา/มัว บน iPad (Safari) */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-synthesis: none;
+}
+
+@font-face {
+    font-family: 'thai-font';
+    src: url('../asset/th-font.ttf') format('truetype');
+}
+
+body {
+    background: #fffcee;
+    margin: 0;
+    font-family: 'thai-font', sans-serif;
+    color: #745232;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+button {
+    font-family: inherit;
+}
+
+.navbar {
+    width: 100%;
+    height: 80px;
+    background-color: #98c1ff;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 1000;
+}
+
+.logo-img {
+    height: 90%;
+    width: auto;
+    position: absolute;
+    top: -1%;
+    left: 2%;
+    z-index: 10;
+}
+
+/* =========================================
+   3. Main Container 
+   ========================================= */
+.main-container {
+    background: #fff6b3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 85%;
+    max-width: 850px;
+    margin: 3vh auto 4vh;
+    border-radius: 40px;
+    padding: 4vh 15px 3vh;
+    box-sizing: border-box;
+    position: relative;
+    gap: 3vh;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    box-shadow: 0 10px 25px rgba(116, 82, 50, 0.1);
+}
+
+.mobile-title {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.pc-title {
+    display: none;
+}
+
+/* =========================================
+   4. Emoji & Note
+   ========================================= */
+.emoji-zone {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    min-height: 0;
+    transform: translateY(-10%);
+}
+
+.note {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 95%;
+    max-width: 600px;
+}
+
+#note {
+    width: 80%;
+    height: auto;
+    display: block;
+}
+
+#note-emoji {
+    position: absolute;
+    z-index: 999;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: auto;
+    transition: transform 0.3s ease-out;
+}
+
+.changing {
+    transform: translate(-50%, -50%) scale(0) rotate(90deg) !important;
+    opacity: 0;
+    filter: drop-shadow(0 0 15px #fff);
+}
+
+/* =========================================
+   5. Mood Buttons (คงสเปคเส้นขอบและมุมเดิมไว้)
+   ========================================= */
+.mood-zone {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+}
+
+.text-zone {
+    margin-top: 1vh;
+    margin-bottom: 1.5vh;
+}
+
+.text-zone h1 {
+    font-size: clamp(30px, 4vw, 45px);
+    line-height: 1.5;
+    color: #745232;
+    margin-bottom: 15px;
+}
+
+.button-zone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 540px;
+}
+
+.firstLine,
+.secondLine {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.firstLine button,
+.secondLine button {
+    flex: 1;
+    max-width: 170px;
+    padding: 12px 5px;
+    background-color: #ffffff;
+    border: 4px solid #745232 !important;
+    border-radius: 15px !important;
+    cursor: pointer;
+    font-size: clamp(11px, 3vw, 16px);
+    line-height: 1.4;
+    transition: 0.3s;
+    color: #d5a170;
+}
+
+.firstLine button.active,
+.secondLine button.active {
+    background-color: #745232;
+    color: #ffffff;
+    transform: scale(0.95);
+}
+
+.confirmButton {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.confirmButton button {
+    width: 100%;
+    padding: 15px 0;
+    background-color: #ffffff;
+    border: 5px solid #745232 !important;
+    border-radius: 10px !important;
+    cursor: pointer;
+    font-size: clamp(24px, 6vw, 34px);
+    font-weight: 600;
+    transition: 0.3s;
+    color: #d5a170;
+}
+
+.confirmButton button:disabled {
+    background-color: #f5f5f5 !important;
+    border-color: #ccc !important;
+    color: #ccc !important;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+
+    .firstLine button:hover,
+    .secondLine button:hover {
+        background-color: #f0f0f0;
+    }
+
+    .confirmButton button:not(:disabled):hover {
+        background-color: #745232;
+        color: #ffffff;
+        transform: scale(1.02);
+    }
+}
+
+/* =========================================
+   🖥️ 6. Landscape Layout (PC / Tablet)
+   ========================================= */
+@media (orientation: landscape) {
+    body {
+        display: block;
+        overflow-y: auto;
+    }
+
+    body.en .text-zone {
+        transform: translateX(-15%);
+    }
+
+    /* 🇹🇭 กรณีเป็นภาษาไทย (ถ้าอยากให้เป็นค่าอื่นก็จูนตรงนี้) */
+    body.th .text-zone {
+       transform: translateX(-20%);
+    }
+
+    .navbar {
+        align-self: stretch;
+        width: 100%;
+        height: 80px;
+        background-color: #98c1ff;
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        box-sizing: border-box;
+        position: relative;
+        z-index: 1000;
+    }
+
+    .logo-img {
+        height: 90%;
+        width: auto;
+        position: absolute;
+        top: -1%;
+        left: 2%;
+        z-index: 10;
+    }
+
+.main-container {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 2vh 0;
+        width: auto;
+        max-width: none;
+        gap: 0;
+        border-radius: 30px;
+        height: calc(100dvh - 80px - clamp(40px, 8dvh, 80px)); 
+        margin: clamp(20px, 4dvh, 40px) clamp(20px, 5vw, 80px); 
+        overflow-y: hidden;
+    }
+
+    .mobile-title {
+        display: none;
+    }
+
+    .pc-title {
+        display: block;
+        text-align: center;
+        margin-bottom: 2vh;
+    }
+
+    .emoji-zone {
+        width: 50% !important;
+        flex: none !important;
+        flex-shrink: 0 !important;
+        flex-grow: 0 !important;
+        padding: clamp(10px, 2vw, 20px);
+        height: auto;
+        transform: translateY(0%);
+    }
+
+    .mood-zone {
+        width: 50% !important;
+        flex: none !important;
+        flex-shrink: 0 !important;
+        flex-grow: 0 !important;
+        padding: clamp(10px, 2vw, 20px);
+        justify-content: center;
+        height: auto;
+    }
+
+    .text-zone {
+        margin-bottom: 1vh;
+    }
+
+    .text-zone h1 {
+        font-size: clamp(16px, 2.8vw, 40px);
+        line-height: 1.2;
+        white-space: nowrap;
+    }
+
+    .button-zone {
+        max-width: clamp(280px, 45vw, 600px);
+        gap: 1vh;
+        /* 🌟 ย้าย transform มาใส่ใน landscape แทน */
+        transform: translateX(-10%);
+    }
+
+    .firstLine,
+    .secondLine {
+        gap: 8px;
+    }
+
+    .firstLine button,
+    .secondLine button {
+        max-width: none;
+        padding: clamp(4px, 1vh, 8px) 5px;
+        font-size: clamp(1px, 1.4vw, 14px);
+        border: 4px solid #745232 !important;
+        border-radius: 15px !important;
+    }
+
+    .confirmButton {
+        margin-top: 1vh;
+    }
+
+    .confirmButton button {
+        padding: clamp(8px, 1.5vh, 12px) 0;
+        font-size: clamp(18px, 2.2vw, 30px);
+        border: 5px solid #745232 !important;
+        border-radius: 10px !important;
+    }
+}
+
+/* =========================================
+   🌟 แอนิเมชันตอนโหลดเข้าหน้าเว็บ (ลอยขึ้นมาทีละส่วน)
+   ========================================= */
+
+@keyframes floatUp {
+    0% {
+        opacity: 0;
+        /* 🌟 เปลี่ยนจาก transform เป็น translate แกน Y ดื้อๆ เลย! */
+        translate: 0 50px; 
+    }
+    100% {
+        opacity: 1;
+        translate: 0 0;
+    }
+}
+
+/* ตั้งค่าให้ทุกส่วนโปร่งใสในตอนแรก และเรียกใช้แอนิเมชัน */
+.emoji-zone,
+.text-zone,
+.firstLine,
+.secondLine,
+.confirmButton {
+    opacity: 0;
+    animation: floatUp 0.8s ease-out forwards;
+}
+
+/* ⏱️ ตั้งเวลาหน่วง (Delay) ให้เด้งไล่ตามกันมาทีละสเต็ป */
+.emoji-zone {
+    animation-delay: 0.2s;
+}
+
+.text-zone {
+    animation-delay: 0.4s;
+}
+
+.firstLine {
+    animation-delay: 0.6s;
+}
+
+.secondLine {
+    animation-delay: 0.8s;
+}
+
+.confirmButton {
+    animation-delay: 1.0s;
+}
