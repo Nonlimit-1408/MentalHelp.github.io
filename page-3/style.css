@@ -1,0 +1,365 @@
+* {
+    box-sizing: border-box !important; /* บังคับไม่ให้ padding ดันขนาดกล่องจนล้นจอ */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-synthesis: none;
+}
+
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100dvh; /* 🌟 ใช้ min-height แทน height ตายตัว */
+    overflow-x: hidden;
+    overflow-y: auto;   /* 🌟 อนุญาตให้ Scroll ในแนวตั้งได้ */
+}
+
+/* =========================================
+   1. Setup พื้นฐาน และ Font (DNA หน้า 1)
+   ========================================= */
+@font-face {
+    font-family: 'english-font';
+    src: url('../asset/eng-font.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'thai-font';
+    src: url('../asset/th-font.ttf') format('truetype');
+}
+
+body {
+    background: #fffcee;
+    margin: 0;
+    font-family: 'thai-font', sans-serif;
+    color: #745232;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden !important;
+    overflow-y: auto; /* 🌟 ยึดตามหน้า 1 */
+}
+
+button {
+    font-family: inherit;
+}
+
+/* =========================================
+   2. Navbar (ยึดขนาด 80px ตามหน้า 1)
+   ========================================= */
+.navbar {
+    align-self: stretch;
+    width: 100%;
+    height: 80px;
+    background-color: #98c1ff;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 1000;
+}
+
+.logo-img {
+    height: 90%;
+    width: auto;
+    position: absolute;
+    top: -1%;
+    left: 2%;
+    z-index: 10;
+}
+
+/* =========================================
+   3. Base Layout & Carousel 2D
+   ========================================= */
+.main-container {
+    background: #fff6b3;
+    display: flex;
+    /* 🌟 ความโค้งการ์ด 40px ตามหน้า 1 */
+    border-radius: 40px; 
+    box-sizing: border-box;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(116, 82, 50, 0.1);
+    animation: slideInRight 0.6s forwards ease-out;
+    overflow-y: hidden;
+}
+
+.left-section,
+.right-section {
+    display: flex;
+    align-items: center;
+}
+
+.carousel-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pattern-display {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pattern-item {
+    position: absolute;
+    object-fit: cover;
+    border-radius: 15px;
+    background-color: #fff;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    cursor: pointer;
+}
+
+.pattern-item.active { transform: translateX(0) scale(1); z-index: 10; opacity: 1; }
+.pattern-item.prev { transform: translateX(-55%) scale(0.8); z-index: 5; opacity: 0.6; }
+.pattern-item.next { transform: translateX(55%) scale(0.8); z-index: 5; opacity: 0.6; }
+.pattern-item.hidden { transform: scale(0.5); z-index: 1; opacity: 0; pointer-events: none; }
+
+.arrow-nav {
+    display: flex;
+    gap: 20px;
+}
+
+.arrow-btn {
+    background: #ffffff;
+    color: #745232;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.control-panel {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.button-group {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-select {
+    background-color: #ffffff;
+    color: #d5a170;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+/* 🌟 FIX: Hover Effect ขยายแค่ 1.02 ตามหน้า 1 */
+@media (hover: hover) and (pointer: fine) {
+    .arrow-btn:hover { background-color: #745232; color: #ffffff; }
+    .btn-select:hover { background-color: #745232; color: #ffffff; transform: scale(1.02); }
+}
+
+/* =========================================
+   📱 4. แนวตั้ง (Portrait)
+   ========================================= */
+.is-portrait .main-container {
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    
+    justify-content: flex-start; /* 🌟 ให้เนื้อหาเรียงจากบนลงล่าง Text จะไม่ทะลุขอบบน */
+
+    width: 85%;
+    max-width: 850px;
+    
+    height: auto; /* 🌟 เปลี่ยนจาก flex: 1 เป็น height: auto เพื่อให้การ์ดยืดตามเนื้อหา */
+    
+    margin: 3vh auto 4vh;
+    padding: 4vh 15px 3vh;
+
+    gap: clamp(15px, 3vh, 30px);
+    overflow-x: hidden;
+    overflow-y: visible; /* 🌟 ปล่อยอิสระให้การ์ด */
+}
+
+.is-portrait .left-section {
+    width: 100%;
+    flex-direction: column;
+}
+
+.is-portrait .right-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: none; 
+}
+
+.is-portrait .mobile-title {
+    display: block;
+    font-size: clamp(24px, 7vw, 36px);
+    color: #745232;
+    margin: 0;
+    text-align: center;
+    line-height: 1.6;
+}
+
+.is-portrait .pc-title {
+    display: none;
+}
+
+.is-portrait .carousel-container {
+    gap: clamp(15px, 2vh, 25px);
+}
+
+.is-portrait .pattern-display {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 0.95; 
+    margin-bottom: 0; 
+}
+
+.is-portrait .pattern-item {
+    width: clamp(150px, 45%, 350px); 
+    height: auto;
+    aspect-ratio: 9 / 16;
+}
+
+.is-portrait .arrow-btn {
+    width: clamp(60px, 15vw, 80px);
+    height: clamp(35px, 5vh, 45px);
+    font-size: clamp(20px, 4vw, 26px);
+    
+    /* 🌟 FIX: ขอบปุ่มเล็ก 4px โค้งมน 15px */
+    border: 4px solid #745232;
+    border-radius: 15px;
+    
+    padding-bottom: 4px;
+}
+
+.is-portrait .btn-select {
+    width: clamp(200px, 80%, 320px);
+    padding: clamp(12px, 2.5vh, 18px) 0;
+    font-size: clamp(22px, 5vw, 32px);
+    
+    /* 🌟 FIX: ขอบปุ่มหลัก 5px โค้งมน 10px เหมือนปุ่มหน้า 1 เป๊ะ */
+    border: 5px solid #745232;
+    border-radius: 10px;
+}
+
+/* =========================================
+   🖥️ 5. แนวนอน (Landscape)
+   ========================================= */
+.is-landscape .main-container {
+    flex-direction: row;
+    justify-content: center;
+    
+    /* 🌟 FIX: เปลี่ยนสมการความสูงให้หักลบ Navbar (80px) และ Margin บน-ล่าง อย่างแม่นยำ */
+    height: calc(100dvh - 80px - clamp(40px, 8vh, 80px));
+    
+    min-height: clamp(280px, 70vh, 700px); 
+    
+    /* ระยะขอบตั้งต้น (ที่นำไปใช้หักลบด้านบน) */
+    margin: clamp(20px, 4vh, 40px) clamp(20px, 5vw, 80px);
+    
+    border-radius: 30px;
+    padding: 0;
+    width: auto;
+    max-width: none;
+    gap: 0;
+    
+    /* 🌟 สั่งประหาร Scrollbar ทิ้ง */
+    overflow: hidden;
+}
+
+.is-landscape .left-section {
+    flex: 1.2;
+    justify-content: center;
+    padding: clamp(10px, 2vw, 40px);
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.is-landscape .right-section {
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(10px, 2vw, 40px);
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.is-landscape .mobile-title {
+    display: none;
+}
+
+.is-landscape .pc-title {
+    display: block;
+    font-size: clamp(20px, 4vw, 35px);
+    color: #745232;
+    line-height: 1.7;
+    margin-bottom: clamp(15px, 3vh, 30px);
+    text-align: center;
+}
+
+.is-landscape .carousel-container {
+    height: 100%;
+    justify-content: center;
+    gap: clamp(10px, 2vh, 25px); 
+}
+
+.is-landscape .pattern-display {
+    width: 100%;
+    height: clamp(140px, 55vh, 450px); 
+    aspect-ratio: auto; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.is-landscape .pattern-item {
+    height: 100%;
+    width: auto;
+    aspect-ratio: 9 / 16;
+}
+
+.is-landscape .arrow-btn {
+    width: clamp(50px, 8vw, 80px);
+    height: clamp(30px, 5vh, 45px);
+    font-size: clamp(18px, 3vw, 24px);
+    padding-bottom: 4px;
+    
+    /* 🌟 FIX: ขอบปุ่มเล็ก แนวนอน */
+    border: clamp(2px, 0.4vw, 4px) solid #745232;
+    border-radius: 15px;
+}
+
+.is-landscape .btn-select {
+    width: clamp(160px, 25vw, 280px);
+    padding: clamp(8px, 1.5vh, 15px) 0;
+    font-size: clamp(18px, 2.5vw, 34px);
+    
+    /* 🌟 FIX: ขอบปุ่มหลัก 5px แนวนอน โค้งมน 10px */
+    border: clamp(3px, 0.6vw, 5px) solid #745232;
+    border-radius: 10px;
+}
+
+@keyframes slideInRight {
+    0% { transform: translateX(100vw); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+
+.slide-out-left {
+    animation: slideOutLeft 0.5s forwards ease-in-out;
+}
+
+@keyframes slideOutLeft {
+    0% { transform: translateX(0); opacity: 1; }
+    100% { transform: translateX(-100vw); opacity: 0; }
+}
