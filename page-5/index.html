@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MentalHelp+ | ผลลัพธ์ของคุณ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Mali:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo"><img src="../asset/logo.svg" class="logo-img" alt="MentalHelp+"></div>
+        </nav>
+    </header>
+
+    <main class="main-container slide-in-right">
+        <div class="header-section mobile-only">
+            <h1 class="status-title" data-i18n="p5_title">บันทึกของคุณพร้อมแล้ว</h1>
+            <p class="status-subtitle" data-i18n="p5_sub">เรื่องราวของคุณถูกรวบรวมเรียบร้อยแล้ว</p>
+        </div>
+
+        <div class="result-page">
+            <section class="preview-container">
+                <div class="artwork-canvas" id="diary-result">
+                    <div id="loading-spinner" class="spinner-container">
+                        <div class="spinner"></div>
+                    </div>
+                    <div id="zoom-wrapper"></div>
+                </div>
+            </section>
+
+            <section class="action-container">
+                <div class="content-wrapper">
+                    <div class="header-section pc-only">
+                        <h1 class="status-title" data-i18n="p5_title">บันทึกของคุณ<br>พร้อมแล้ว</h1>
+                        <p class="status-subtitle" data-i18n="p5_sub">เรื่องราวของคุณ<br>ถูกรวบรวมไว้เรียบร้อยแล้ว</p>
+                    </div>
+
+                    <div class="button-group">
+                        <button class="btn-primary" onclick="saveImage()" data-i18n="p5_save">บันทึกรูปภาพ</button>
+                        <button class="btn-primary" onclick="nextPage()" data-i18n="p5_next">ถัดไป</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <template id="template-1">
+        <div id="assembly-canvas" class="canvas p1">
+            <img id="user-photo" class="layer-photo" src="" alt="User Photo">
+            <img class="layer-frame" src="" alt="Frame 1">
+            <div class="text-layer">
+                <div class="vibe-content"></div>
+                <div class="advice-header"></div>
+                <div class="advice-content"></div>
+                <div class="diary-header"></div>
+                <div class="diary-content"></div>
+                <div class="timestamp-group">
+                    <div class="timestamp-style" id="time"></div>
+                    <div class="timestamp-style" id="date"></div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="template-2">
+        <div id="assembly-canvas" class="canvas p2">
+            <img id="user-photo" class="layer-photo" src="" alt="User Photo">
+            <img class="layer-frame" src="" alt="Frame 2">
+            <div class="text-layer">
+                <div class="vibe-content"></div>
+                <div class="advice-header"></div>
+                <div class="advice-content"></div>
+                <div class="diary-header"></div>
+                <div class="diary-content"></div>
+                <div class="timestamp-group">
+                    <div class="time-timestamp-style" id="time"></div>
+                </div>
+                <div class="timestamp-group">
+                    <div class="day-timestamp-style" id="date"></div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="template-3">
+        <div id="assembly-canvas" class="canvas p3">
+            <img id="user-photo" class="layer-photo" src="" alt="User Photo">
+            <img class="layer-frame" src="" alt="Frame 3">
+            <div class="text-layer">
+                <div class="vibe-content"></div>
+                <div class="advice-header"></div>
+                <div class="advice-content"></div>
+                <div class="diary-header"></div>
+                <div class="diary-content"></div>
+                <div class="timestamp-group">
+                    <div class="timestamp-style" id="time"></div>
+                    <div class="timestamp-style" id="date"></div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="template-4">
+        <div id="assembly-canvas" class="canvas p4">
+            <img id="user-photo" class="layer-photo" src="" alt="User Photo">
+            <img class="layer-frame" src="" alt="Frame 4">
+            <div class="text-layer">
+                <div class="vibe-content"></div>
+                <div class="advice-header"></div>
+                <div class="advice-content"></div>
+                <div class="diary-header"></div>
+                <div class="diary-content"></div>
+                <div class="timestamp-group">
+                    <div class="timestamp-style" id="time"></div>
+                    <div class="timestamp-style" id="date"></div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="template-5">
+        <div id="assembly-canvas" class="canvas p5">
+            <img id="user-photo" class="layer-photo" src="" alt="User Photo">
+            <img class="layer-frame" src="" alt="Frame 5">
+            <div class="text-layer">
+                <div class="vibe-content"></div>
+                <div class="advice-header"></div>
+                <div class="advice-content"></div>
+                <div class="diary-header"></div>
+                <div class="diary-content"></div>
+                <div class="timestamp-group">
+                    <div class="timestamp-style" id="time"></div>
+                    <div class="timestamp-style" id="date"></div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <script src="../sound-bridge.js"></script>
+    <script src="../settings.js"></script>
+    <script src="lang.js"></script>
+    <script src="assetbase64.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

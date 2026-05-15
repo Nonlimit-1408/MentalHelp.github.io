@@ -1,0 +1,170 @@
+* {
+    /* 🌟 แก้ปัญหาฟอนต์หนา/มัว บน iPad (Safari) */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-synthesis: none;
+}
+/* =========================================
+   1. Setup พื้นฐาน และ Font (DNA หน้า 1)
+   ========================================= */
+@font-face {
+    font-family: 'thai-font';
+    src: url('../asset/th-font.ttf') format('truetype');
+}
+
+body {
+    background: #fffcee;
+    margin: 0;
+    font-family: 'thai-font', sans-serif;
+    color: #745232;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden !important; 
+}
+
+/* =========================================
+   2. Navbar (ยึดขนาด 80px ตามหน้า 1)
+   ========================================= */
+.navbar {
+    align-self: stretch;
+    width: 100%;
+    
+    /* 🌟 FIX: ล็อกความสูง 80px ตามมาตรฐานหน้า 1 */
+    height: 80px; 
+    
+    background-color: #98c1ff;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 1000;
+}
+
+.logo-img {
+    height: 90%;
+    width: auto;
+    position: absolute;
+    top: -1%;
+    left: 2%;
+    z-index: 10;
+}
+
+/* =========================================
+   3. Main Container (📱 Portrait - การ์ดลอยกึ่งกลาง)
+   ========================================= */
+.main-container {
+    background: #fff6b3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    /* 🌟 FIX: สัดส่วนและ Margin ตามหน้า 1 */
+    width: 85%;
+    max-width: 850px;
+    margin: 3vh auto 4vh; 
+    flex: 1;
+    
+    /* 🌟 FIX: โค้งมน 40px และ Padding ตามหน้า 1 */
+    border-radius: 40px; 
+    padding: 4vh 15px 3vh; 
+    
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    
+    /* 🌟 FIX: เพิ่มเงาการ์ดให้เหมือนหน้า 1 */
+    box-shadow: 0 10px 25px rgba(116, 82, 50, 0.1);
+}
+
+.thank-you-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.thank-you-container {
+    text-align: center;
+    padding: 0 10px;
+    animation: fadeInOut 4.8s ease-in-out forwards;
+}
+
+.thank-you-title {
+    font-size: clamp(15px, 6vw, 40px);
+    color: #745232;
+    margin: 0 0 15px 0;
+    line-height: 1.6;
+}
+
+.thank-you-subtitle {
+    font-family: 'Mali', cursive, sans-serif;
+    font-size: clamp(16px, 4vw, 22px);
+    color: #a68b6d;
+    margin: 0;
+}
+
+/* สลับการแสดงผลหัวข้อตามหน้าจอ */
+.mobile-only { display: block; }
+.pc-only { display: none; }
+
+/* =========================================
+   🖥️ 4. แนวนอน (Landscape / PC)
+   ========================================= */
+@media (orientation: landscape) {
+    .main-container {
+        /* 🌟 FIX: หักลบ Navbar 80px แบบตายตัว เพื่อให้การ์ดไม่ล้น */
+        height: calc(100dvh - 80px - clamp(40px, 8vh, 80px));
+        min-height: 400px;
+        
+        /* 🌟 FIX: Margin และความโค้งมน 30px เหมือนหน้า 1 */
+        margin: clamp(20px, 4vh, 40px) clamp(20px, 5vw, 80px);
+        border-radius: 30px;
+        
+        width: auto;
+        max-width: none;
+        flex: none;
+    }
+
+    .thank-you-title {
+        font-size: clamp(20px, 3.5vw, 35px);
+        line-height: 1.3;
+    }
+
+    .mobile-only { display: none; }
+    .pc-only { display: block; }
+
+    /* 📱 โทรศัพท์แนวนอนจอเตี้ย */
+    @media (max-height: 500px) {
+        .main-container { 
+            height: auto; 
+            min-height: 300px; 
+            padding: 15px; 
+            margin: 20px 40px; 
+        }
+        .thank-you-title { font-size: 20px; }
+    }
+    .br-portrait {
+        display: none;
+    }
+}
+
+/* =========================================
+   5. Animations
+   ========================================= */
+.slide-in-right { animation: slideInRight 0.6s forwards ease-out; }
+
+@keyframes slideInRight {
+    0% { transform: translateX(100vw); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateY(20px); }
+    15% { opacity: 1; transform: translateY(0); }
+    80% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-20px); }
+}

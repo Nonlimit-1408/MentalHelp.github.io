@@ -1,0 +1,973 @@
+/* =========================================
+   🛡️ Safari Anti-Tantrum Armor 🛡️
+========================================= */
+* {
+    /* 🌟 แก้ปัญหาฟอนต์หนา/มัว บน iPad (Safari) */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-synthesis: none;
+}
+
+.canvas,
+.text-layer,
+img {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+/* =========================================
+   1. Setup พื้นฐาน และ Font (ล็อกตามหน้า 1)
+   ========================================= */
+@font-face {
+    font-family: 'english-font';
+    src: url('../asset/eng-font.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'thai-font';
+    src: url('../asset/th-font.ttf') format('truetype');
+}
+
+:root {
+    --card-inner-h: calc(100dvh - 80px - clamp(40px, 8dvh, 80px) - 40px);
+    --canvas-h: calc(var(--card-inner-h) * 0.95);
+}
+
+body {
+    background: #fffcee;
+    margin: 0;
+    font-family: 'thai-font', sans-serif;
+    color: #745232;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden !important;
+    overflow-y: auto;
+}
+
+button {
+    font-family: inherit;
+}
+
+/* Navbar */
+.navbar {
+    width: 100%;
+    height: 80px;
+    background-color: #98c1ff;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 1000;
+}
+
+.logo-img {
+    height: 90%;
+    width: auto;
+    position: absolute;
+    top: -1%;
+    left: 2%;
+    z-index: 10;
+}
+
+/* =========================================
+   2. Main Layout (📱 Portrait - แนวตั้ง)
+   ========================================= */
+.main-container {
+    background: #fff6b3;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+    /* 🌟 FIX: ความกว้างและ Padding ตามหน้า 1 */
+    width: 85%;
+    max-width: 850px;
+    margin: 3vh auto 4vh;
+    padding: 4vh 15px 3vh;
+    border-radius: 40px;
+
+    box-sizing: border-box;
+    position: relative;
+    gap: 3vh;
+    animation: slideInRight 0.6s forwards ease-out;
+    opacity: 0;
+    box-shadow: 0 10px 25px rgba(116, 82, 50, 0.1);
+    /* เพิ่มเงาพื้นฐานการ์ดเหมือนหน้าอื่นๆ */
+}
+
+.result-page {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    flex: 1;
+}
+
+.header-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+}
+
+.mobile-only {
+    display: flex;
+}
+
+.pc-only {
+    display: none;
+}
+
+.status-title {
+    font-size: clamp(22px, 5vw, 32px);
+    color: #745232;
+    margin: 0 0 5px 0;
+    line-height: 1.5;
+}
+
+.status-subtitle {
+    font-size: clamp(14px, 3.5vw, 18px);
+    line-height: 1.8;
+    color: #a68b6d;
+    margin: 0;
+}
+
+/* =========================================
+   3. Preview Zone (Responsive + เส้นประ)
+   ========================================= */
+.preview-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    flex: 1;
+    min-height: 200px;
+}
+
+.artwork-canvas {
+    width: clamp(240px, 65vw, 420px);
+    height: auto;
+    aspect-ratio: 9 / 16;
+    background: transparent;
+    position: relative;
+    outline: clamp(2px, 0.4vw, 4px) dashed #745232;
+}
+
+#zoom-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1080px;
+    height: 1920px;
+    transform-origin: top left;
+    will-change: transform;
+}
+
+/* =========================================
+   4. Action Zone
+   ========================================= */
+.action-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 2vh;
+}
+
+.content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 90%;
+    max-width: 350px;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 12px 0;
+    background-color: #ffffff;
+    color: #d5a170;
+
+    /* 🌟 FIX: ปรับขอบปุ่ม 5px และความโค้ง 10px ไม่มีเงาแบบ 3D เหมือนหน้า 1 */
+    border: 5px solid #745232;
+    border-radius: 10px;
+    box-shadow: none;
+
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* 🌟 FIX: Hover Effect ขยายร่าง 1.02 เหมือนหน้า 1 */
+@media (hover: hover) and (pointer: fine) {
+    .btn-primary:hover {
+        background-color: #745232;
+        color: #ffffff;
+        transform: scale(1.02);
+    }
+}
+
+.btn-primary:active {
+    transform: scale(0.95);
+}
+
+/* =========================================
+   🖥️ 5. แนวนอน (Landscape / PC)
+   ========================================= */
+@media (orientation: landscape) {
+    .main-container {
+        flex-direction: row;
+        height: calc(100dvh - 160px);
+        width: auto;
+        max-width: none;
+
+        /* 🌟 FIX: ปรับ Margin และ Padding เหมือนหน้า 1 */
+        margin: clamp(20px, 4vh, 40px) clamp(20px, 5vw, 80px);
+        padding: clamp(15px, 3vh, 30px) clamp(20px, 4vw, 40px);
+
+        gap: 20px;
+        border-radius: 30px;
+    }
+
+    .result-page {
+        flex-direction: row;
+        height: 100%;
+    }
+
+    .mobile-only {
+        display: none;
+    }
+
+    .pc-only {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    .status-title,
+    .status-subtitle {
+        text-align: center;
+    }
+
+    .preview-container {
+        flex: 1.2;
+        height: 100%;
+        align-items: center;
+    }
+
+    .artwork-canvas {
+        height: var(--canvas-h);
+        width: calc(var(--canvas-h) * (9 / 16));
+        aspect-ratio: 9/16;
+    }
+
+    .action-container {
+        flex: 1;
+        align-items: center;
+    }
+
+    .content-wrapper {
+        align-items: center;
+        width: 100%;
+    }
+
+    .button-group {
+        flex-direction: column;
+        width: 50%;
+        min-width: 280px;
+        max-width: 350px;
+        align-items: center;
+    }
+
+    /* 📱 โทรศัพท์แนวนอน (จอเตี้ย) */
+    @media (max-height: 500px) {
+        .main-container {
+            height: auto;
+            min-height: clamp(320px, 80vh, 700px);
+            margin: 15px 40px;
+            padding: 15px;
+            gap: 15px;
+        }
+
+        .pc-only {
+            margin-bottom: 10px;
+        }
+
+        .pc-only .status-title {
+            font-size: clamp(18px, 4vh, 24px) !important;
+        }
+
+        .pc-only .status-subtitle {
+            font-size: clamp(12px, 2.5vh, 16px) !important;
+        }
+
+        .btn-primary {
+            font-size: clamp(14px, 3vh, 18px);
+            padding: 8px 15px;
+            border-width: 3px;
+            white-space: nowrap;
+        }
+
+        .artwork-canvas {
+            height: 70vh;
+            width: auto;
+        }
+
+        .button-group {
+            gap: 8px;
+            min-width: unset;
+            width: 50%;
+        }
+    }
+}
+
+/* =========================================
+   🌟 Spinner โหลดหน้า
+   ========================================= */
+.spinner-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #fffcee;
+    /* สีพื้นหลังบังพรีวิวไว้ก่อน */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    transition: opacity 0.5s ease;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(116, 82, 50, 0.2);
+    border-top-color: #745232;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* คลาสสำหรับซ่อน Spinner */
+.spinner-hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* =========================================================
+   🔥 6. ฐานรากของ Canvas (ห้ามลบเด็ดขาด) 🔥
+========================================================= */
+.canvas {
+    width: 1080px;
+    height: 1920px;
+    position: relative;
+    overflow: hidden;
+}
+
+.layer-frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.layer-photo {
+    position: absolute;
+    z-index: 1;
+    object-fit: cover;
+}
+
+.text-layer {
+    position: absolute;
+    z-index: 3;
+    font-family: 'Mali', cursive;
+    color: #000;
+    width: 100%;
+    height: 100%;
+}
+
+.vibe-content,
+.advice-header,
+.advice-content,
+.diary-header,
+.diary-content {
+    position: absolute;
+    white-space: normal !important;
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
+    text-wrap: normal !important;
+}
+
+/* 👇👇👇 โซนโค้ด Pattern ของคุณที่เดิมเลยครับ 👇👇👇 */
+
+
+/* --- Pattern 1 --- */
+.p1 {
+    background: #000;
+}
+
+.p1 .layer-photo {
+    background: #255622;
+    position: absolute;
+    top: 15%;
+    left: 10%;
+    width: 67%;
+    height: 23.5%;
+    transform: rotate(6deg);
+}
+
+.p1 .timestamp-group {
+    position: absolute;
+    top: 60px;
+    left: 700px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 3;
+    transform: rotate(-4.7deg);
+}
+
+.p1 .timestamp-style {
+    font-family: "Caveat", cursive;
+    font-size: 60px;
+    color: #000;
+    letter-spacing: 0.5px;
+    line-height: 1;
+}
+
+.p1 .vibe-content {
+    position: absolute;
+    top: 39%;
+    left: -10%;
+    width: 100%;
+    transform: rotate(6.4deg);
+    font-size: 23.7px;
+    font-weight: 400;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    line-height: 1.8;
+}
+
+.p1 .advice-header {
+    position: absolute;
+    top: 51.5%;
+    left: 35%;
+    font-size: 35px;
+    font-weight: 700;
+    transform: rotate(-6.5deg);
+}
+
+.p1 .advice-content {
+    position: absolute;
+    top: 54%;
+    left: 17%;
+    width: 75%;
+    font-size: 28px;
+    font-weight: 400;
+    transform: rotate(-6.7deg);
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    line-height: 1.8;
+
+}
+
+.p1 .diary-header {
+    position: absolute;
+    top: 70%;
+    left: 8%;
+    font-weight: 700;
+    font-size: 38px;
+    color: #745232;
+}
+
+.p1 .diary-content {
+    position: absolute;
+    top: 73%;
+    left: 10%;
+    width: 80%;
+    font-size: 23.7px;
+    font-weight: 400;
+    text-wrap: normal !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 13;
+    line-clamp: 13;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.5;
+}
+
+/* --- Pattern 2 --- */
+.p2 {
+    background: #000;
+}
+
+.p2 .layer-photo {
+    position: absolute;
+    top: 2%;
+    left: 43%;
+    width: 50%;
+    aspect-ratio: 1 / 1;
+    height: auto;
+    border-radius: 50%;
+}
+
+.p2 .timestamp-group {
+    font-family: "Caveat", cursive;
+    font-size: 82px;
+    color: #000;
+    line-height: 1.1;
+}
+
+/* 2. แยกควบคุม "เวลา" (Time) อย่างอิสระ */
+.p2 .time-timestamp-style {
+    position: absolute;
+    top: 90%;
+    /* ปรับพิกัดบน-ล่าง ได้ตามใจชอบ */
+    left: 680px;
+    /* ปรับพิกัดซ้าย-ขวา */
+    transform: rotate(-4deg);
+    z-index: 3;
+}
+
+/* 3. แยกควบคุม "วันที่" (Day) อย่างอิสระ */
+.p2 .day-timestamp-style {
+    position: absolute;
+    font-size: 4.5rem;
+    top: 95%;
+    left: 590px;
+    z-index: 3;
+    transform: rotate(-4deg);
+}
+
+.p2 .vibe-content {
+    position: absolute;
+    top: 32.2%;
+    left: 4%;
+    transform: rotate(-7deg);
+    width: 630px;
+    font-size: 30px;
+    line-height: 1.4;
+    text-align: center;
+    word-break: keep-all;
+}
+
+.p2 .advice-header {
+    position: absolute;
+    top: 50.5%;
+    left: 26%;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.p2 .advice-content {
+    position: absolute;
+    top: 54.25%;
+    left: 32%;
+    width: 650px;
+    font-size: 32px;
+    line-height: 1.4;
+    text-align: center;
+    word-break: keep-all;
+}
+
+.p2 .diary-header {
+    position: absolute;
+    top: 65%;
+    left: 5%;
+    font-weight: 700;
+    font-size: 38px;
+    color: #ffde59;
+}
+
+.p2 .diary-content {
+    position: absolute;
+    top: 68%;
+    left: 6%;
+    width: 90%;
+    font-size: 20px;
+    color: #fff;
+    text-wrap: normal !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 11;
+    line-clamp: 11;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.5;
+}
+
+/* --- Pattern 3 --- */
+.p3 {
+    background: #fff;
+}
+
+.p3 .layer-photo {
+    position: absolute;
+    top: 7.5%;
+    left: 7%;
+    width: 73%;
+    height: 30%;
+    transform: rotate(-10deg);
+}
+
+.p3 .advice-header {
+    position: absolute;
+    top: 39.9%;
+    left: 48%;
+    transform: rotate(-3.5deg);
+    font-weight: 700;
+    font-size: 30px;
+}
+
+.p3 .advice-content {
+    position: absolute;
+    top: 42.25%;
+    left: 29%;
+    width: 70%;
+    transform: rotate(-3.5deg);
+    font-size: 28px;
+    text-align: center;
+    line-height: 1.4;
+}
+
+.p3 .vibe-content {
+    position: absolute;
+    top: 58%;
+    left: -23%;
+    font-size: 25px;
+    line-height: 1.7;
+    font-weight: 500;
+    transform: rotate(-7deg);
+    width: 100%;
+    text-align: center;
+}
+
+.p3 .diary-header {
+    position: absolute;
+    top: 76%;
+    left: 2%;
+    font-size: 50px;
+    font-weight: 700;
+    transform: rotate(4deg);
+}
+
+.p3 .diary-content {
+    position: absolute;
+    top: 81%;
+    left: 3%;
+    width: 85%;
+    font-size: 22px;
+    line-height: 1.5;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 11;
+    line-clamp: 11;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    transform: rotate(4deg);
+}
+
+.p3 .timestamp-group {
+    position: absolute;
+    bottom: 22.75%;
+    right: 7%;
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+    align-items: baseline;
+    transform: rotate(11deg);
+    z-index: 3;
+}
+
+.p3 .timestamp-style {
+    font-family: 'Caveat', cursive;
+    font-size: 70px;
+    color: #4a4a4a;
+    line-height: 1;
+}
+
+/* --- Pattern 4 --- */
+.p4 {
+    background: #fff;
+}
+
+.p4 .layer-photo {
+    position: absolute;
+    top: 6.5%;
+    left: 14%;
+    width: 72.5%;
+    aspect-ratio: 4 / 3;
+    transform: rotate(3deg);
+}
+
+.p4 .vibe-content {
+    position: absolute;
+    top: 45%;
+    left: -2.5%;
+    width: 640px;
+    transform: rotate(-7deg);
+    font-size: 26px;
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.7;
+}
+
+.p4 .advice-header {
+    position: absolute;
+    top: 55.9%;
+    left: 54%;
+    font-weight: 700;
+    font-size: 32px;
+    transform: rotate(1.2deg);
+}
+
+.p4 .advice-content {
+    position: absolute;
+    top: 58.5%;
+    left: 40%;
+    transform: rotate(1.2deg);
+    width: 620px;
+    font-size: 28px;
+    text-align: center;
+    line-height: 1.6;
+}
+
+.p4 .diary-header {
+    position: absolute;
+    top: 68.5%;
+    left: 50%;
+    font-size: 65px;
+    font-weight: 700;
+    transform: rotate(-7.5deg);
+}
+
+.p4 .diary-content {
+    position: absolute;
+    top: 78%;
+    left: 5%;
+    width: 90%;
+    font-size: 21px;
+    line-height: 1.5;
+    transform: rotate(-8deg);
+    display: -webkit-box !important;
+    -webkit-line-clamp: 11;
+    line-clamp: 11;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.p4 .timestamp-group {
+    position: absolute;
+    top: 35%;
+    left: 36%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: rotate(6deg);
+    z-index: 3;
+}
+
+.p4 .timestamp-style {
+    font-family: 'Caveat', cursive;
+    font-size: 50px;
+    color: #444;
+    line-height: 0.9;
+}
+
+/* --- Pattern 5 --- */
+.p5 {
+    background: #fff;
+}
+
+.p5 .layer-photo {
+    position: absolute;
+    top: 63.8%;
+    left: 0%;
+    width: 36.5%;
+    aspect-ratio: 3 / 4;
+    height: auto;
+    transform: rotate(-8.5deg);
+}
+
+.p5 .vibe-content {
+    position: absolute;
+    top: 13.7%;
+    left: -25%;
+    width: 100%;
+    transform: rotate(-12.5deg);
+    font-size: 22px;
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.8;
+}
+
+.p5 .advice-header {
+    position: absolute;
+    top: 30%;
+    left: 62%;
+    transform: rotate(10.5deg);
+    font-weight: 700;
+    font-size: 30px;
+}
+
+.p5 .advice-content {
+    position: absolute;
+    top: 35%;
+    left: 52%;
+    width: 500px;
+    transform: rotate(11deg);
+    font-size: 25px;
+    text-align: center;
+    line-height: 1.8;
+}
+
+.p5 .diary-header {
+    position: absolute;
+    top: 52.5%;
+    left: 55%;
+    font-size: 58px;
+    font-weight: 700;
+    transform: rotate(3deg);
+}
+
+.p5 .diary-content {
+    position: absolute;
+    top: 57.25%;
+    left: 50%;
+    width: 520px;
+    font-size: 20px;
+    line-height: 1.45;
+    transform: rotate(3deg);
+    display: -webkit-box !important;
+    -webkit-line-clamp: 27;
+    line-clamp: 27;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.p5 .timestamp-group {
+    position: absolute;
+    top: 41.5%;
+    left: 14.75%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: rotate(-82deg);
+    z-index: 3;
+}
+
+.p5 .timestamp-style {
+    font-family: 'Caveat', cursive;
+    font-size: 65px;
+    color: #333;
+    line-height: 0.9;
+}
+
+
+/* =========================================================
+   3. 🇺🇸 โซนจูนพิกัดภาษาอังกฤษ (.lang-en)
+   🔥 ทดลองเปลี่ยนตัวเลขที่นี่ตอนปรับเป็น EN ได้เลย! 🔥
+========================================================= */
+
+/* --- EN: Pattern 1 --- */
+.lang-en .p1 .vibe-content {
+    /* ลองแก้เลขดู */
+    position: absolute;
+    top: 39.5%;
+    transform: rotate(5deg);
+    font-size: 20px;
+}
+
+.lang-en .p1 .advice-header {
+    top: 51.25%;
+}
+
+.lang-en .p1 .advice-content {
+    top: 54.5%;
+    font-size: 24px;
+}
+
+/* --- EN: Pattern 2 --- */
+.lang-en .p2 .vibe-content {
+    top: 31.75%;
+    font-size: 30px;
+}
+
+.lang-en .p2 .advice-header {
+    font-size: 30px;
+}
+
+.lang-en .p2 .advice-content {
+    font-size: 30px;
+}
+
+/* --- EN: Pattern 3 --- */
+.lang-en .p3 .advice-content {
+    font-size: 26px;
+}
+
+.lang-en .p3 .vibe-content {
+    font-size: 24px;
+}
+
+/* --- EN: Pattern 4 --- */
+.lang-en .p4 .vibe-content {
+    font-size: 24px;
+}
+
+.lang-en .p4 .advice-content {
+    font-size: 26px;
+}
+
+/* --- EN: Pattern 5 --- */
+.lang-en .p5 .vibe-content {
+    font-size: 22px;
+}
+
+.lang-en .p5 .advice-content {
+    font-size: 22px;
+}
+
+/* --- แอนิเมชันสไลด์เข้าจากขวา --- */
+.slide-in-right {
+    animation: slideInRight 0.6s forwards ease-out;
+}
+
+@keyframes slideInRight {
+    0% {
+        transform: translateX(100vw);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MentalHelp+ | เลือก Pattern</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="../asset/logo.svg" class="logo-img" alt="MentalHelp+">
+            </div>
+        </nav>
+    </header>
+
+    <div class="main-container">
+        <h1 class="mobile-title" data-i18n="p3_title">เลือก Pattern<br>ที่ต้องการ</h1>
+
+        <div class="left-section">
+            <div class="carousel-container">
+                <div class="pattern-display" id="pattern-display">
+                    <img src="asset/th/1.png" class="pattern-item" data-index="0" data-pattern="1" alt="Pattern 1">
+                    <img src="asset/th/2.png" class="pattern-item" data-index="1" data-pattern="2" alt="Pattern 2">
+                    <img src="asset/th/3.png" class="pattern-item" data-index="2" data-pattern="3" alt="Pattern 3">
+                    <img src="asset/th/4.png" class="pattern-item" data-index="3" data-pattern="4" alt="Pattern 4">
+                    <img src="asset/th/5.png" class="pattern-item" data-index="4" data-pattern="5" alt="Pattern 5">
+                </div>
+                <div class="arrow-nav">
+                    <button id="btn-prev" class="arrow-btn">&#8592;</button>
+                    <button id="btn-next" class="arrow-btn">&#8594;</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-section">
+            <div class="control-panel">
+                <h1 class="pc-title" data-i18n="p3_title">เลือก Pattern<br>ที่ต้องการ</h1>
+                <div class="button-group">
+                    <button class="btn-select" id="btn-confirm" data-i18n="p3_confirm">เลือก</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../sound-bridge.js"></script>
+    <script src="../settings.js"></script>
+    <script src="lang.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
